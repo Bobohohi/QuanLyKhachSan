@@ -13,10 +13,41 @@
         android:theme="@style/Theme.QuanLyKhachSan"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.QuanLyKhachSan.NoActionBar">
+            android:name=".QLNhanVienActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QLKhachHangActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QLBillActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QLDichVuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QLPhongActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HostDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BillActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignInActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
