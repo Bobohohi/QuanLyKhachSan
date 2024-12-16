@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".CustomerDashboardActivity">
+    tools:context=".Views.CustomerDashboardActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -49,8 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="26dp" />
 
-    <ListView
-        android:id="@+id/lvDSKhachHang"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RViewRoom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="20dp"
