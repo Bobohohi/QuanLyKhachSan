@@ -1,4 +1,4 @@
-package com.example.quanlykhachsan.Views;
+package com.example.quanlykhachsan.View_Customers;
 
 import android.os.Bundle;
 
@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quanlykhachsan.R;
 
-public class QLKhachHangActivity extends AppCompatActivity {
+public class PhongDaDatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_qlkhach_hang);
+        setContentView(R.layout.activity_phong_da_dat);
 
     }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.BillActivity">
+    tools:context=".View_Customers.BillActivity">
 
     <Button
         android:id="@+id/btnBack"
@@ -71,7 +71,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="Night"
+            android:text="Day"
             android:textSize="16sp" />
 
         <TextView
@@ -109,7 +109,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="TextView"
+            android:text="E-payment"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -122,22 +122,21 @@
 
         <TextView
             android:id="@+id/textView24"
-            android:layout_width="39dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:layout_weight="1"
-            android:text="promos"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/txtPromos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="TextView"
+            android:text="Price"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txtPromos"
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
             android:textSize="16sp" />
     </LinearLayout>
 

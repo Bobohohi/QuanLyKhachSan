@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.BookingActivity">
+    tools:context=".View_Customers.BookingActivity">
 
     <ImageView
         android:id="@+id/imageView4"
@@ -54,7 +54,7 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="People"
+        android:text="Chọn Số Người"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
@@ -77,6 +77,14 @@
         android:layout_marginRight="20dp"
         android:background="@android:drawable/btn_dropdown"
         android:spinnerMode="dropdown" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Xem Gợi ý"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -116,15 +124,15 @@
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="wrap_content"
+            android:layout_width="147dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
+
         <Spinner
             android:id="@+id/spinner2"
-            android:layout_width="wrap_content"
+            android:layout_width="192dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp" />
     </LinearLayout>
 
@@ -177,15 +185,9 @@
         android:textSize="16sp" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RViewService"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
-
-    <TextView
-        android:id="@+id/textView35"
-        android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="175dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
 

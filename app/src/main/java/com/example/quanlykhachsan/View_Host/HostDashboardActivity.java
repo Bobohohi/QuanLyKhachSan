@@ -1,4 +1,4 @@
-package com.example.quanlykhachsan.Views;
+package com.example.quanlykhachsan.View_Host;
 
 import android.os.Bundle;
 import android.widget.TextView;

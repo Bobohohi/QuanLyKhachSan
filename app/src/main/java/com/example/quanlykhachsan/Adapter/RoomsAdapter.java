@@ -2,10 +2,10 @@ package com.example.quanlykhachsan.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quanlykhachsan.Class.Rooms;
 import com.example.quanlykhachsan.R;
-import com.example.quanlykhachsan.Views.BillActivity;
+import com.example.quanlykhachsan.View_Customers.BillActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -67,14 +67,33 @@ public class RoomsAdapter extends RecyclerView.Adapter<RoomsAdapter.RoomViewHold
             holder.ivRoomImage.setImageResource(R.drawable.defaultroom);  // Hình ảnh mặc định
         }
 
-        // Xử lý sự kiện click vào một item phòng
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, BillActivity.class);
-            intent.putExtra("room_id", room.getRoomid());
-            intent.putExtra("room_type", room.getRoomtype());
-            intent.putExtra("room_price", room.getPrice());
-            context.startActivity(intent);
-        });
+        // Kiểm tra trạng thái phòng
+        if (room.getStatus().equalsIgnoreCase("Bận")) {
+            // Làm mờ giao diện và vô hiệu hóa click
+            holder.itemView.setAlpha(0.5f); // Làm mờ item
+            holder.itemView.setEnabled(false); // Vô hiệu hóa click
+        } else {
+            // Trạng thái phòng trống, cho phép click
+            holder.itemView.setAlpha(1.0f); // Không làm mờ
+            holder.itemView.setEnabled(true); // Cho phép click
+
+            // Xử lý sự kiện click vào một item phòng
+            holder.itemView.setOnClickListener(v -> {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("SelectedRoom", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("room_id", room.getRoomid());
+                editor.putString("room_name", room.getRoomtype());
+                editor.putFloat("room_price", room.getPrice());
+                editor.apply();
+
+                Intent intent = new Intent(context, BillActivity.class);
+                intent.putExtra("room_id", room.getRoomid());
+                intent.putExtra("room_type", room.getRoomtype());
+                intent.putExtra("room_price", room.getPrice());
+                context.startActivity(intent);
+            });
+        }
+
     }
 
     @Override

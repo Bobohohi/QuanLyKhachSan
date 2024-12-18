@@ -1,15 +1,11 @@
-package com.example.quanlykhachsan.Views;
+package com.example.quanlykhachsan.View_Customers;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.quanlykhachsan.Adapter.RoomsAdapter;
@@ -34,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDashboardActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.1.205/ht/getRoom.php";
+    final String SERVER = "http://192.168.1.204/ht/getRoom.php";
     EditText etSearch;
     TextView txtTen;
     List<Rooms> roomList = new ArrayList<>(); ;
@@ -130,5 +125,6 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         adapter = new RoomsAdapter(this, roomList);
         recyclerView.setAdapter(adapter);
     }
+
 
 }

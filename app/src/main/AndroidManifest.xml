@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,37 +13,43 @@
         android:roundIcon="@drawable/hotel"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuanLyKhachSan"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
-            android:name=".Views.QLNhanVienActivity"
+            android:name=".View_Customers.PhongDaDatActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.QLKhachHangActivity"
+            android:name=".View_Customers.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.QLBillActivity"
+            android:name=".View_Host.QLNhanVienActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.QLDichVuActivity"
+            android:name=".View_Host.QLKhachHangActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.QLPhongActivity"
+            android:name=".View_Host.QLBillActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.HostDashboardActivity"
+            android:name=".View_Host.QLDichVuActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.BillActivity"
+            android:name=".View_Host.QLPhongActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.BookingActivity"
+            android:name=".View_Host.HostDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.CustomerDashboardActivity"
+            android:name=".View_Customers.BillActivity"
             android:exported="false" />
         <activity
-            android:name=".Views.SignInActivity"
+            android:name=".View_Customers.BookingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View_Customers.CustomerDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".View_SignIn.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

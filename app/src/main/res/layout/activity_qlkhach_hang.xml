@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Views.QLKhachHangActivity">
+    tools:context=".View_Host.QLKhachHangActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

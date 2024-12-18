@@ -1,4 +1,4 @@
-package com.example.quanlykhachsan.Views;
+package com.example.quanlykhachsan.View_SignIn;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,8 +16,9 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.quanlykhachsan.Class.Customers;
-import com.example.quanlykhachsan.Class.Rooms;
 import com.example.quanlykhachsan.R;
+import com.example.quanlykhachsan.View_Customers.DashboardActivity;
+import com.example.quanlykhachsan.View_Host.HostDashboardActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.1.205/ht/getCustomer.php";
+    final String SERVER = "http://192.168.1.204/ht/getCustomer.php";
     List<Customers> CustomersList = new ArrayList<>();
     EditText etTK , etMK;
     Button btnDangNhap;
@@ -106,7 +107,7 @@ public class SignInActivity extends AppCompatActivity {
                     editor.putString("CustomerUsername", validCustomer.getUsername()); // Lưu username (tuỳ chọn)
                     editor.apply();  // Lưu lại
                     // Chuyển đến BookingActivity (hoặc màn hình tương ứng)
-                    Intent i = new Intent(this, BookingActivity.class);
+                    Intent i = new Intent(this, DashboardActivity.class);
                     startActivity(i);
                     finish();
                 } else {
