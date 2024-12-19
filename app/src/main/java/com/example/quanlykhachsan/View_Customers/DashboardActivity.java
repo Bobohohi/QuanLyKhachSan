@@ -28,7 +28,10 @@ public class DashboardActivity extends AppCompatActivity {
             Intent intent = new Intent(DashboardActivity.this, BookingActivity.class);
             startActivity(intent);
         });
-
+        btnPhongDaDat.setOnClickListener(view -> {
+            Intent intent = new Intent(DashboardActivity.this, PhongDaDatActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void addControls() {

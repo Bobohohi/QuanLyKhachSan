@@ -19,6 +19,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/white"
             android:drawableLeft="?attr/homeAsUpIndicator"
+            android:outlineSpotShadowColor="@color/white"
             android:text="Quản Lý phòng"
             android:textColor="@color/black"
             android:textSize="24sp" />
@@ -107,7 +108,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/etGiaphong"
+            android:id="@+id/etTendv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

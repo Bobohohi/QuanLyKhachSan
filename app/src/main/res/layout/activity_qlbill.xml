@@ -19,6 +19,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/white"
             android:drawableLeft="?attr/homeAsUpIndicator"
+            android:outlineSpotShadowColor="@color/white"
             android:text="Quản Lý Hóa Đơn"
             android:textColor="@color/black"
             android:textSize="24sp" />

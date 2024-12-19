@@ -54,7 +54,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/etMaNV"
+            android:id="@+id/etMadv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/etGiaphong"
+            android:id="@+id/etTendv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
