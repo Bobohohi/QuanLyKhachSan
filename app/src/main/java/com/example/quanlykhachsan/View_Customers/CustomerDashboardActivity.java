@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDashboardActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.182.229/ht/getRoom.php";
+    final String SERVER = "http://172.21.13.235/ht/getRoom.php";
     EditText etSearch;
     TextView txtTen;
     List<Rooms> roomList = new ArrayList<>(); ;

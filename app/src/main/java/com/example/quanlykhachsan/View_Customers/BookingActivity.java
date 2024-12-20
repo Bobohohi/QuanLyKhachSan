@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class BookingActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.182.229/ht/getService.php";
+    final String SERVER = "http://172.21.13.235/ht/getService.php";
     private EditText etDay, etTo;
     private Spinner cbbPeople, cbbChonloaiphong,cbbChonsoluong, cbbService;
     private Button  btnBooking;

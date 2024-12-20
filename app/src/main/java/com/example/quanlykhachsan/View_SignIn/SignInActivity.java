@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.182.229/ht/getCustomer.php";
+    final String SERVER = "http://172.21.13.235/ht/getCustomer.php";
     List<Customers> CustomersList = new ArrayList<>();
     EditText etTK , etMK;
     Button btnDangNhap;
