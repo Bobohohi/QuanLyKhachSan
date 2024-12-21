@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
+
     <ImageView
         android:id="@+id/ivRoomImage"
         android:layout_width="233dp"

@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class BookingActivity extends AppCompatActivity {
-    final String SERVER = "http://172.21.13.235/ht/getService.php";
+    final String SERVER = "http://192.168.1.254/ht/getService.php";
     private EditText etDay, etTo;
     private Spinner cbbPeople, cbbChonloaiphong,cbbChonsoluong, cbbService;
     private Button  btnBooking;
@@ -133,7 +133,9 @@ public class BookingActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             sdf.setLenient(false); // Đảm bảo định dạng ngày chính xác
 
-            Date currentDate = new Date(); // Ngày hiện tại
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DATE, -1);
+            Date currentDate = calendar.getTime(); // Ngày hiện tại
             Date checkIn = sdf.parse(checkInDate); // Ngày đến
             Date checkOut = sdf.parse(checkOutDate); // Ngày đi
 

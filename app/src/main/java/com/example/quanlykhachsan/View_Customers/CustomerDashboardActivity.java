@@ -1,10 +1,12 @@
 package com.example.quanlykhachsan.View_Customers;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,15 +28,20 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CustomerDashboardActivity extends AppCompatActivity {
-    final String SERVER = "http://172.21.13.235/ht/getRoom.php";
+    final String SERVER = "http://192.168.1.254/ht/getRoom.php";
     EditText etSearch;
-    TextView txtTen;
+    Button btnChonphong;
+    TextView txtTen , txtGoiY;
     List<Rooms> roomList = new ArrayList<>(); ;
     RoomsAdapter adapter;
     RecyclerView recyclerView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,12 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         addEvens();
         loadData();
         loadTen();
+        loadGoiY();
+    }
+    private void loadGoiY(){
+        SharedPreferences bookingPrefs = getSharedPreferences("BookingPrefs", MODE_PRIVATE);
+        String roomQuantity = bookingPrefs.getString("roomQuantity", "");
+        txtGoiY.setText("Gợi Ý : "+roomQuantity);
     }
 
     private void loadTen() {
@@ -50,7 +63,9 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         String customerName = sharedPreferences.getString("CustomerName", "Khách hàng");
         txtTen.setText("Khách Hàng : " + customerName);
     }
-
+    //String peopleCount = bookingPrefs.getString("peopleCount", "1");
+    //int maxRoomSelection = getMaxRoomSelection(peopleCount);
+    //adapter.setMaxSelectionLimit(maxRoomSelection);
     private void loadData() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -88,14 +103,72 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 filterRooms(s.toString());
             }
-
             @Override
             public void afterTextChanged(Editable s) {}
+        });
+        btnChonphong.setOnClickListener(v -> {
+            // Lấy danh sách các phòng đã chọn từ Adapter
+            List<Rooms> selectedRooms = new ArrayList<>();
+            for (Rooms room : roomList) {
+                if (adapter.getSelectedRooms().contains(room.getRoomid())) {
+                    selectedRooms.add(room);
+                }
+            }
+
+            // Kiểm tra nếu không có phòng nào được chọn
+            if (selectedRooms.isEmpty()) {
+                Toast.makeText(this, "Vui lòng chọn ít nhất một phòng!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            SharedPreferences bookingPrefs = getSharedPreferences("BookingPrefs", MODE_PRIVATE);
+            String peopleCountStr = bookingPrefs.getString("peopleCount", "1");
+            int peopleCount = Integer.parseInt(peopleCountStr);
+
+            // Xác định giới hạn số phòng dựa trên số lượng người
+            int maxRoomSelection;
+            if (peopleCount >= 1 && peopleCount <= 4) {
+                maxRoomSelection = 2;
+            } else if (peopleCount >= 5 && peopleCount <= 8) {
+                maxRoomSelection = 3;
+            } else {
+                maxRoomSelection = 1; // Mặc định nếu không thuộc các trường hợp trên
+            }
+
+            // Kiểm tra số lượng phòng đã chọn
+            if (selectedRooms.size() > maxRoomSelection) {
+                Toast.makeText(this, "Với " + peopleCount + " người, bạn chỉ được chọn tối đa " +
+                        maxRoomSelection + " phòng!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            // Lưu danh sách phòng đã chọn vào SharedPreferences dưới dạng chuỗi JSON
+            SharedPreferences sharedPreferences = getSharedPreferences("SelectedRoomsPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            JSONArray jsonArray = new JSONArray();
+            for (Rooms room : selectedRooms) {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("Room_id", room.getRoomid());
+                    jsonObject.put("Type", room.getRoomtype());
+                    jsonObject.put("Status", room.getStatus());
+                    jsonObject.put("Price", room.getPrice());
+                    jsonObject.put("Image", room.getImage());
+                    jsonArray.put(jsonObject);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            editor.putString("selected_rooms", jsonArray.toString());
+            editor.apply();
+
+            // Chuyển sang Activity khác
+            Intent intent = new Intent(CustomerDashboardActivity.this, BillActivity.class);
+            startActivity(intent);
         });
 
 
@@ -119,7 +192,8 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         txtTen = findViewById(R.id.txtTen);
         etSearch = findViewById(R.id.etSearch);
         recyclerView = findViewById(R.id.RViewRoom);
-
+        txtGoiY=findViewById(R.id.txtGoiY);
+        btnChonphong=findViewById(R.id.btnChonphong);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RoomsAdapter(this, roomList);

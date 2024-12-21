@@ -27,11 +27,18 @@
     <TextView
         android:id="@+id/txtTen"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="wrap_content"
         android:fontFamily="cursive"
         android:text="Khách Hàng : "
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtGoiY"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gợi Ý :"
+        android:textColor="#FD4500" />
 
     <EditText
         android:id="@+id/etSearch"
@@ -52,7 +59,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RViewRoom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="382dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp" />
+
+    <Button
+        android:id="@+id/btnChonphong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:backgroundTint="@color/black"
+        android:text="Chọn Phòng"
+        android:textSize="16sp" />
 </LinearLayout>

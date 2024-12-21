@@ -58,7 +58,8 @@
         android:layout_marginRight="20dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="text" />
+        android:inputType="text"
+        android:password="true" />
 
     <TextView
         android:id="@+id/textView6"
