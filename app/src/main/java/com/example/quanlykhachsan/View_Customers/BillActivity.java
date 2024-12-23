@@ -31,7 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class BillActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.1.254/ht/postyeucau.php";
+    final String SERVER = "http://10.0.2.2/ht/postyeucau.php";
     private Button btnBack, btnOrder;
     private TextView txtTen, txtRoom, txtNight, txtPayment, txtPromos, txtService, txtDay, txtTotalService, txtTotal;
     SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

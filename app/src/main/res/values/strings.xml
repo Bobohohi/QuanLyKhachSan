@@ -10,4 +10,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    
+    <string name="client_id">619596232033-pu4447sspo63gnrgd895arb0dlp77vsr.apps.googleusercontent.com</string>
 </resources>

@@ -43,8 +43,12 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void loadTen() {
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        String customerName = sharedPreferences.getString("CustomerName", "Khách hàng");
+        String customerName = getIntent().getStringExtra("CustomerName");
+        if (customerName == null || customerName.isEmpty()) {
+            // Lấy từ SharedPreferences nếu Intent không có dữ liệu
+            SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+            customerName = sharedPreferences.getString("CustomerName", "Khách hàng");
+        }
         txtTen.setText("Xin Chào : " + customerName);
     }
 }

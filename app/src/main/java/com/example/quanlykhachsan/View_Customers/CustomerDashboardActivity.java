@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CustomerDashboardActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.1.254/ht/getRoom.php";
+    final String SERVER = "http://10.0.2.2/ht/getRoom.php";
     EditText etSearch;
     Button btnChonphong;
     TextView txtTen , txtGoiY;

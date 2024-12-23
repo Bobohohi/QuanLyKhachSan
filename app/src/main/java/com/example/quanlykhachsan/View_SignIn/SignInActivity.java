@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -19,6 +21,11 @@ import com.example.quanlykhachsan.Class.Customers;
 import com.example.quanlykhachsan.R;
 import com.example.quanlykhachsan.View_Customers.DashboardActivity;
 import com.example.quanlykhachsan.View_Host.HostDashboardActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,15 +34,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
-    final String SERVER = "http://192.168.1.254/ht/getCustomer.php";
+    final String SERVER = "http://10.0.2.2/ht/getCustomer.php";
     List<Customers> CustomersList = new ArrayList<>();
     EditText etTK , etMK;
-    Button btnDangNhap;
+    Button btnDangNhap,btnsigingg,btnsiginfb;
     Customers validCustomer = null;
+
+    private ActivityResultLauncher<Intent> googleSignInLauncher;
+    FirebaseAuth auth;
+    GoogleSignInClient googleSignInClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        setupGoogleSignInLauncher();
         addControls();
         addEvens();
         loadData();
@@ -72,6 +85,31 @@ public class SignInActivity extends AppCompatActivity {
 
         StringRequest request = new StringRequest(Request.Method.GET, url, responseListener, errorListener);
         requestQueue.add(request);
+    }
+    private void setupGoogleSignInLauncher() {
+        googleSignInLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        // Xử lý kết quả đăng nhập Google
+                        Intent data = result.getData();
+                        if (data != null) {
+                            // Lấy thông tin người dùng từ GoogleSignInAccount
+                            GoogleSignIn.getSignedInAccountFromIntent(data)
+                                    .addOnSuccessListener(googleAccount -> {
+                                        // Chuyển đến DashboardActivity sau khi đăng nhập thành công
+                                        Intent i = new Intent(this, DashboardActivity.class);
+                                        i.putExtra("CustomerName", googleAccount.getDisplayName());
+                                        startActivity(i);
+                                        finish();
+                                    })
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show()
+                                    );
+                        }
+                    }
+                }
+        );
     }
 
     private void addEvens() {
@@ -116,11 +154,33 @@ public class SignInActivity extends AppCompatActivity {
                 }
             }
         });
+        btnsigingg.setOnClickListener(view -> {
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+            if (account != null) {
+                Toast.makeText(this, "You are already signed in with: " + account.getEmail(), Toast.LENGTH_SHORT).show();
+                // Đăng xuất trước khi đăng nhập lại
+                googleSignInClient.signOut().addOnCompleteListener(task -> {
+                    Intent intent = googleSignInClient.getSignInIntent();
+                    googleSignInLauncher.launch(intent);
+                });
+            } else {
+                Intent intent = googleSignInClient.getSignInIntent();
+                googleSignInLauncher.launch(intent);
+            }
+        });
     }
 
     private void addControls() {
         etTK= findViewById(R.id.etUsername);
         etMK=findViewById(R.id.etPassword);
         btnDangNhap=findViewById(R.id.btnContinue);
+        btnsigingg=findViewById(R.id.btnsigingg);
+        btnsiginfb=findViewById(R.id.btnsiginfb);
+        GoogleSignInOptions options=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.client_id))
+                .requestEmail()
+                .build();
+        googleSignInClient = GoogleSignIn.getClient(this,options);
+        auth=FirebaseAuth.getInstance();
     }
 }

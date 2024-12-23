@@ -32,7 +32,7 @@ import java.util.List;
 
 public class QLBillActivity extends AppCompatActivity {
 
-    final String SERVER = "http://192.168.182.229/ht/getBill.php";
+    final String SERVER = "http://10.0.2.2/ht/getBill.php";
 
     Button btnBack, BtnXem, BtnXoa;
     EditText etSearch;

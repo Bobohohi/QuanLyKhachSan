@@ -28,7 +28,7 @@ import java.util.List;
 
 public class QLDichVuActivity extends AppCompatActivity {
 
-    final String SERVER = "http://172.21.13.235/ht/getService.php";
+    final String SERVER = "http://10.0.2.2/ht/getService.php";
     Button btnBack, BtnXoa, BtnLuu;
     EditText etMa, etTen, etGia, etSearch;
     ListView lvDichvu;

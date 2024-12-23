@@ -89,7 +89,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnsigingg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -101,14 +101,14 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btnsiginfb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:backgroundTint="#EDECEC"
-        android:drawableLeft="@drawable/apple"
-        android:text="Continue With Apple"
+        android:drawableLeft="@drawable/facebook2"
+        android:text="Continue With Facebook"
         android:textColor="@color/black"
         android:textStyle="bold" />
 
