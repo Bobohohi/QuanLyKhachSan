@@ -94,12 +94,12 @@
 
         <TextView
             android:id="@+id/textView22"
-            android:layout_width="38dp"
+            android:layout_width="133dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="Payment"
+            android:text="Payment To"
             android:textSize="16sp" />
 
         <TextView
@@ -109,7 +109,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="E-payment"
+            android:text="MB BANK : 3898897227"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -260,7 +260,10 @@
     <TextView
         android:id="@+id/textView16"
         android:layout_width="match_parent"
-        android:layout_height="137dp" />
+        android:layout_height="89dp"
+        android:gravity="center_vertical"
+        android:text="Notes To Payment : Name + Room"
+        android:textColor="#F60707" />
 
     <Button
         android:id="@+id/btnOrder"
@@ -269,5 +272,40 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:backgroundTint="@color/black"
-        android:text="Place Order" />
+        android:text="Thanh Toán Ngân Hàng" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="clip_horizontal|center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnzalo"
+            android:layout_width="73dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/zalo"
+            android:outlineSpotShadowColor="@color/white" />
+
+        <TextView
+            android:id="@+id/textView47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Or" />
+
+        <Button
+            android:id="@+id/btngoogle"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/google50"
+            android:outlineSpotShadowColor="@color/white" />
+    </LinearLayout>
 </LinearLayout>

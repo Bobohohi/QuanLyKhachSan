@@ -5,14 +5,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quanlykhachsan.R;
+import com.example.quanlykhachsan.View_SignIn.SignInActivity;
 
 public class DashboardActivity extends AppCompatActivity {
     TextView txtTen;
-    Button btnDatPhong, btnPhongDaDat, btnKhuyenMai, btnThongTin;
+    Button btnDatPhong, btnPhongDaDat, btnKhuyenMai, btnThongTin,btnlogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,17 @@ public class DashboardActivity extends AppCompatActivity {
             Intent intent = new Intent(DashboardActivity.this, PhongDaDatActivity.class);
             startActivity(intent);
         });
+        btnlogout.setOnClickListener(view -> {
+            Intent intent = new Intent(DashboardActivity.this, SignInActivity.class);
+            startActivity(intent);
+            finish();
+        });
+        btnKhuyenMai.setOnClickListener(view -> {
+            Toast.makeText(DashboardActivity.this, "Tính năng đang phát triển", Toast.LENGTH_SHORT).show();
+        });
+        btnThongTin.setOnClickListener(view -> {
+            Toast.makeText(DashboardActivity.this, "Tính năng đang phát triển", Toast.LENGTH_SHORT).show();
+        });
     }
 
     private void addControls() {
@@ -40,6 +53,8 @@ public class DashboardActivity extends AppCompatActivity {
         btnPhongDaDat = findViewById(R.id.btnPhongDaDat);
         btnKhuyenMai = findViewById(R.id.btnKhuyenMai);
         btnThongTin = findViewById(R.id.btnThongTin);
+        btnlogout=findViewById(R.id.btnlogout);
+
     }
 
     private void loadTen() {

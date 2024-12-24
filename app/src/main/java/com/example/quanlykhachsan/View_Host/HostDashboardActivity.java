@@ -9,12 +9,14 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quanlykhachsan.R;
+import com.example.quanlykhachsan.View_Customers.DashboardActivity;
 import com.example.quanlykhachsan.View_Host.QLBillActivity;
 import com.example.quanlykhachsan.View_Host.QLDichVuActivity;
+import com.example.quanlykhachsan.View_SignIn.SignInActivity;
 
 public class HostDashboardActivity extends AppCompatActivity {
     TextView txtXinChao;
-    Button btnDichvu,btnBill,btnPhong,btnKhachhang,btnNhanvien;
+    Button btnDichvu,btnBill,btnPhong,btnKhachhang,btnNhanvien,btnYeuCau,btnlogout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,16 +68,25 @@ public class HostDashboardActivity extends AppCompatActivity {
             Intent intent = new Intent(HostDashboardActivity.this, QLNhanVienActivity.class);
             startActivity(intent);
         });
+        btnYeuCau.setOnClickListener(view -> {
+            Intent intent = new Intent(HostDashboardActivity.this, QLYeuCauActivity.class);
+            startActivity(intent);
+        });
+        btnlogout.setOnClickListener(view -> {
+            Intent intent = new Intent(HostDashboardActivity.this, SignInActivity.class);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void addControls() {
-
+        btnlogout=findViewById(R.id.btnlogout);
         txtXinChao=findViewById(R.id.txtTen);
         btnDichvu=findViewById(R.id.btnQLDichvu);
         btnBill=findViewById(R.id.btnQLHoadon);
         btnPhong=findViewById(R.id.btnQLPhong);
         btnKhachhang=findViewById(R.id.btnQLKhachhang);
         btnNhanvien=findViewById(R.id.btnQLNhanvien);
-
+        btnYeuCau=findViewById(R.id.btnYCDP);
     }
 }

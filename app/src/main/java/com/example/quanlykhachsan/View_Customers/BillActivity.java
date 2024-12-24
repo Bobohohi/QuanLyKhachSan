@@ -3,6 +3,8 @@ package com.example.quanlykhachsan.View_Customers;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.quanlykhachsan.Api.CreateOrder;
 import com.example.quanlykhachsan.Class.yeucau;
 import com.example.quanlykhachsan.R;
 
@@ -30,10 +33,15 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPayError;
+import vn.zalopay.sdk.ZaloPaySDK;
+import vn.zalopay.sdk.listeners.PayOrderListener;
+
 public class BillActivity extends AppCompatActivity {
     final String SERVER = "http://10.0.2.2/ht/postyeucau.php";
-    private Button btnBack, btnOrder;
-    private TextView txtTen, txtRoom, txtNight, txtPayment, txtPromos, txtService, txtDay, txtTotalService, txtTotal;
+    private Button btnBack, btnOrder,btnzalo,btngoogle;
+    private TextView txtTen, txtRoom, txtNight, txtPayment, txtPromos, txtService, txtDay, txtTotalService, txtTotal,txttest;
     SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
     SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     String formattedDate = "";
@@ -41,6 +49,13 @@ public class BillActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill);
+
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        // ZaloPay SDK Init
+        ZaloPaySDK.init(2553, Environment.SANDBOX);
+
         addControls();
         addEvens();
         loadData();
@@ -131,32 +146,106 @@ public class BillActivity extends AppCompatActivity {
     private void addEvens() {
         btnBack.setOnClickListener(v -> finish());
         btnOrder.setOnClickListener(v -> {
-
+            String totalText = txtTotal.getText().toString().trim();
+            Intent intent = new Intent(BillActivity.this, PaymentActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("total", totalText);
+            startActivity(intent);
+            post_dulieu();
+            finish();
+        });
+        btnzalo.setOnClickListener(view -> {
+            String totalText = txtTotal.getText().toString().trim();
+            // Loại bỏ dấu phẩy và chữ "VND", sau đó chuyển thành số
             try {
-                Date date = inputFormat.parse(txtDay.getText().toString());
-                formattedDate = outputFormat.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+                String cleanedText = totalText.replace(",", "").replace("VND", "").trim();
+                int totalAmount = Integer.parseInt(cleanedText);
+                // Hiển thị giá trị đã chuyển đổi trong txttest
+                txttest.setText(String.valueOf(totalAmount));
+                // Tiếp tục logic thanh toán ZaloPay (nếu cần)
+                post_dulieu();
+                ThanhToanzalo(totalAmount);
 
-            // Chuyển đổi giá tiền
-            double price = 0.0;
-            try {
-                price = Double.parseDouble(txtTotal.getText().toString().replace(",", "").replace("VND", "").trim());
             } catch (NumberFormatException e) {
                 e.printStackTrace();
+                Toast.makeText(BillActivity.this, "Lỗi định dạng số tiền", Toast.LENGTH_SHORT).show();
             }
-
-            // Tạo đối tượng yeucau
-            String Customer = txtTen.getText().toString();
-            String Room = txtRoom.getText().toString();
-            String Service = txtService.getText().toString();
-            yeucau y = new yeucau(Customer, Room, Service, formattedDate, price);
-            postRequest_add(y);
-            Intent i = new Intent(this, DashboardActivity.class);
-            startActivity(i);
+        });
+        btngoogle.setOnClickListener(view -> {
+            Toast.makeText(BillActivity.this,"Chức năng đang được phát triển",Toast.LENGTH_SHORT).show();
         });
     }
+    private void post_dulieu(){
+        try {
+            Date date = inputFormat.parse(txtDay.getText().toString());
+            formattedDate = outputFormat.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // Chuyển đổi giá tiền
+        double price = 0.0;
+        try {
+            price = Double.parseDouble(txtTotal.getText().toString().replace(".", "").replace("VND", "").trim());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+        // Tạo đối tượng yeucau
+        String Customer = txtTen.getText().toString();
+        String Room = txtRoom.getText().toString();
+        String Service = txtService.getText().toString();
+        yeucau y = new yeucau(Customer, Room, Service, formattedDate, price);
+        postRequest_add(y);
+    }
+    private void ThanhToanzalo(int totalAmount){
+        CreateOrder orderApi = new CreateOrder();
+
+        try {
+            JSONObject data = orderApi.createOrder(totalAmount+"");
+            String code = data.getString("return_code");
+            if (code.equals("1")) {
+                String token=data.getString("zp_trans_token");
+                ZaloPaySDK.getInstance().payOrder(BillActivity.this, token, "demozpdk://app", new PayOrderListener() {
+                    @Override
+                    public void onPaymentSucceeded(String s, String s1, String s2) {
+                        Toast.makeText(BillActivity.this, "Vui lòng đợi hệ thống xác nhận", Toast.LENGTH_SHORT).show();
+                        // Chuyển sang DashboardActivity
+                        Intent intent = new Intent(BillActivity.this, DashboardActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        // Kết thúc BillActivity
+                        finish();
+                    }
+
+                    @Override
+                    public void onPaymentCanceled(String s, String s1) {
+                        Toast.makeText(BillActivity.this, "Thanh toán bị hủy", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onPaymentError(ZaloPayError zaloPayError, String s, String s1) {
+                        Toast.makeText(BillActivity.this, "Thanh toán thất bại: " + zaloPayError.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+            else {
+                String errorMessage = data.optString("message", "Có lỗi xảy ra. Vui lòng thử lại.");
+                Toast.makeText(BillActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        // Kiểm tra dữ liệu callback
+        if (intent != null) {
+            Log.d("BillActivity", "Intent received: " + intent.getDataString());
+        }
+    }
+
 
     private void addControls() {
         btnBack = findViewById(R.id.btnBack);
@@ -170,6 +259,9 @@ public class BillActivity extends AppCompatActivity {
         txtDay = findViewById(R.id.txtDay);
         txtTotalService = findViewById(R.id.txtTotalService);
         txtTotal = findViewById(R.id.txtTotal);
+        btnzalo=findViewById(R.id.btnzalo);
+        btngoogle=findViewById(R.id.btngoogle);
+        txttest=findViewById(R.id.textView16);
     }
     private  void postRequest_add(yeucau y){
         RequestQueue requestQueue = Volley.newRequestQueue(
@@ -189,7 +281,7 @@ public class BillActivity extends AppCompatActivity {
                             if (result) {
                                 Toast.makeText(
                                         BillActivity.this,
-                                        "Order thành công",
+                                        "Thanh Toán Oder",
                                         Toast.LENGTH_SHORT
                                 ).show();
 

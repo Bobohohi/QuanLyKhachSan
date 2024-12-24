@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View_Host.QLYeuCauActivity">
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="?attr/homeAsUpIndicator"
+        android:outlineSpotShadowColor="@color/white"
+        android:text="Yêu Cầu Đặt Phòng "
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="match_parent"
+        android:layout_height="51dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RViewYC"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View_Customers.PaymentActivity">
+
+    <TextView
+        android:id="@+id/textView48"
+        android:layout_width="match_parent"
+        android:layout_height="91dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="257dp"
+        android:layout_height="106dp"
+        android:layout_marginLeft="50dp"
+        app:srcCompat="@drawable/mb" />
+
+    <TextView
+        android:id="@+id/textView50"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Nguyễn Văn Hoàng"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView49"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="STK : 3898897227"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="345dp"
+        android:layout_height="301dp"
+        android:layout_marginLeft="40dp"
+        android:outlineSpotShadowColor="@color/white"
+        app:srcCompat="@drawable/qrcode" />
+
+    <TextView
+        android:id="@+id/txttotal"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginLeft="30dp"
+        android:gravity="bottom"
+        android:text="total"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView51"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="30dp"
+        android:gravity="center_vertical"
+        android:text="Ghi Chú : Tên Khách Hàng + Tên Phòng"
+        android:textColor="#F80707"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnbacktohome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:backgroundTint="@color/black"
+        android:text="Trở Về Trang Chủ" />
+</LinearLayout>

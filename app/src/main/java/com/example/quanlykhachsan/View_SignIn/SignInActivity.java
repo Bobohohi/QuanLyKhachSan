@@ -168,6 +168,9 @@ public class SignInActivity extends AppCompatActivity {
                 googleSignInLauncher.launch(intent);
             }
         });
+        btnsiginfb.setOnClickListener(view -> {
+
+        });
     }
 
     private void addControls() {
