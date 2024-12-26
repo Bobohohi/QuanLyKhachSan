@@ -94,7 +94,7 @@
 
         <TextView
             android:id="@+id/textView22"
-            android:layout_width="133dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
@@ -109,7 +109,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:text="MB BANK : 3898897227"
+            android:text="E - Payment"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -262,7 +262,6 @@
         android:layout_width="match_parent"
         android:layout_height="89dp"
         android:gravity="center_vertical"
-        android:text="Notes To Payment : Name + Room"
         android:textColor="#F60707" />
 
     <Button

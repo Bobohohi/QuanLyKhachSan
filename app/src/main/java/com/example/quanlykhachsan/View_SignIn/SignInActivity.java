@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
-    final String SERVER = "http://10.0.2.2/ht/getCustomer.php";
+    final String SERVER = "http://192.168.1.204/ht/getCustomer.php";
     List<Customers> CustomersList = new ArrayList<>();
     EditText etTK , etMK;
     Button btnDangNhap,btnsigingg,btnsiginfb;
@@ -97,9 +97,12 @@ public class SignInActivity extends AppCompatActivity {
                             // Lấy thông tin người dùng từ GoogleSignInAccount
                             GoogleSignIn.getSignedInAccountFromIntent(data)
                                     .addOnSuccessListener(googleAccount -> {
+                                        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("CustomerName", googleAccount.getDisplayName());
+                                        editor.apply();
                                         // Chuyển đến DashboardActivity sau khi đăng nhập thành công
                                         Intent i = new Intent(this, DashboardActivity.class);
-                                        i.putExtra("CustomerName", googleAccount.getDisplayName());
                                         startActivity(i);
                                         finish();
                                     })

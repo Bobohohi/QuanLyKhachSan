@@ -35,4 +35,9 @@
         android:layout_marginRight="20dp"
         android:backgroundTint="@color/black"
         android:text="Yêu Cầu Hủy Phòng" />
+
+    <TextView
+        android:id="@+id/txttencus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

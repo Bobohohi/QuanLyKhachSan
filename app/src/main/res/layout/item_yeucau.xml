@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -13,31 +13,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Khách Hàng" />
+            android:text="Khách Hàng"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Phòng" />
+            android:text="Phòng"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Dịch Vụ" />
+            android:text="Dịch Vụ"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ngày" />
+            android:text="Ngày"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Giá" />
+            android:text="Giá"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -51,35 +56,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="KH" />
+            android:text="KH"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtPhong"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="phong" />
+            android:text="phong"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtDichVu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="DV" />
+            android:text="DV"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtNgay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Ngay" />
+            android:text="Ngay"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/txtGia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="gia" />
+            android:text="gia"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout

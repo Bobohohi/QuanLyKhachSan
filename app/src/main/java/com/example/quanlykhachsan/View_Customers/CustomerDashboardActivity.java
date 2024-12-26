@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CustomerDashboardActivity extends AppCompatActivity {
-    final String SERVER = "http://10.0.2.2/ht/getRoom.php";
+    final String SERVER = "http://192.168.1.204/ht/getRoom.php";
     EditText etSearch;
     Button btnChonphong;
     TextView txtTen , txtGoiY;
@@ -63,9 +63,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         String customerName = sharedPreferences.getString("CustomerName", "Khách hàng");
         txtTen.setText("Khách Hàng : " + customerName);
     }
-    //String peopleCount = bookingPrefs.getString("peopleCount", "1");
-    //int maxRoomSelection = getMaxRoomSelection(peopleCount);
-    //adapter.setMaxSelectionLimit(maxRoomSelection);
+
     private void loadData() {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 

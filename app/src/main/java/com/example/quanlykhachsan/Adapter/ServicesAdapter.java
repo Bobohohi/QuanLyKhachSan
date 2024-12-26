@@ -71,6 +71,7 @@ public class ServicesAdapter extends RecyclerView.Adapter<ServicesAdapter.Servic
 
     @Override
     public int getItemCount() {
+
         return serviceList.size();  // Trả về số lượng mục trong danh sách
     }
 

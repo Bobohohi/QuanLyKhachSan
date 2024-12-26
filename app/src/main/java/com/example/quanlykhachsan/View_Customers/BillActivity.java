@@ -39,7 +39,7 @@ import vn.zalopay.sdk.ZaloPaySDK;
 import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class BillActivity extends AppCompatActivity {
-    final String SERVER = "http://10.0.2.2/ht/postyeucau.php";
+    final String SERVER = "http://192.168.1.204/ht/postyeucau.php";
     private Button btnBack, btnOrder,btnzalo,btngoogle;
     private TextView txtTen, txtRoom, txtNight, txtPayment, txtPromos, txtService, txtDay, txtTotalService, txtTotal,txttest;
     SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -147,29 +147,26 @@ public class BillActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
         btnOrder.setOnClickListener(v -> {
             String totalText = txtTotal.getText().toString().trim();
+            post_dulieu();
             Intent intent = new Intent(BillActivity.this, PaymentActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("total", totalText);
             startActivity(intent);
-            post_dulieu();
-            finish();
+
         });
         btnzalo.setOnClickListener(view -> {
             String totalText = txtTotal.getText().toString().trim();
             // Loại bỏ dấu phẩy và chữ "VND", sau đó chuyển thành số
             try {
-                String cleanedText = totalText.replace(",", "").replace("VND", "").trim();
-                int totalAmount = Integer.parseInt(cleanedText);
+                String cleanedText = totalText.replace(",", "").replace(".","").replace("VND", "").trim();
                 // Hiển thị giá trị đã chuyển đổi trong txttest
+                long totalAmount = Long.parseLong(cleanedText); // Dùng long để xử lý số lớn hơn int
                 txttest.setText(String.valueOf(totalAmount));
-                // Tiếp tục logic thanh toán ZaloPay (nếu cần)
-                post_dulieu();
                 ThanhToanzalo(totalAmount);
-
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 Toast.makeText(BillActivity.this, "Lỗi định dạng số tiền", Toast.LENGTH_SHORT).show();
             }
+
         });
         btngoogle.setOnClickListener(view -> {
             Toast.makeText(BillActivity.this,"Chức năng đang được phát triển",Toast.LENGTH_SHORT).show();
@@ -183,36 +180,41 @@ public class BillActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         // Chuyển đổi giá tiền
-        double price = 0.0;
+        double totalAmount = 0;
+        String totalText = txtTotal.getText().toString().trim();
         try {
-            price = Double.parseDouble(txtTotal.getText().toString().replace(".", "").replace("VND", "").trim());
+            String cleanedText = totalText.replace(",", "").replace(".","").replace("VND", "").trim();
+            totalAmount = Double.parseDouble(cleanedText);
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            Toast.makeText(BillActivity.this, "Lỗi định dạng số tiền", Toast.LENGTH_SHORT).show();
         }
         // Tạo đối tượng yeucau
         String Customer = txtTen.getText().toString();
+        String[] parts = Customer.split(":");
+
+// Lấy phần sau dấu ":" và loại bỏ khoảng trắng
+        String customerName = parts.length > 1 ? parts[1].trim() : Customer.trim();
         String Room = txtRoom.getText().toString();
         String Service = txtService.getText().toString();
-        yeucau y = new yeucau(Customer, Room, Service, formattedDate, price);
+        String status = "Chờ Xác Nhận";
+        yeucau y = new yeucau(customerName, Room, Service, formattedDate, totalAmount,status);
+        Log.d("POST DATA", "Customer: " + y.getCustomer() + ", Room: " + y.getRoom() + ", Service: " + y.getService() + ", Date: " + formattedDate + ", Price: " + y.getPrice() + ", Status: " + y.getStatus());
         postRequest_add(y);
     }
-    private void ThanhToanzalo(int totalAmount){
+    private void ThanhToanzalo(long t){
         CreateOrder orderApi = new CreateOrder();
-
         try {
-            JSONObject data = orderApi.createOrder(totalAmount+"");
+            JSONObject data = orderApi.createOrder(t+"");
             String code = data.getString("return_code");
             if (code.equals("1")) {
                 String token=data.getString("zp_trans_token");
                 ZaloPaySDK.getInstance().payOrder(BillActivity.this, token, "demozpdk://app", new PayOrderListener() {
                     @Override
                     public void onPaymentSucceeded(String s, String s1, String s2) {
-                        Toast.makeText(BillActivity.this, "Vui lòng đợi hệ thống xác nhận", Toast.LENGTH_SHORT).show();
-                        // Chuyển sang DashboardActivity
+                        post_dulieu();
                         Intent intent = new Intent(BillActivity.this, DashboardActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        // Kết thúc BillActivity
                         finish();
                     }
 
@@ -240,10 +242,7 @@ public class BillActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        // Kiểm tra dữ liệu callback
-        if (intent != null) {
-            Log.d("BillActivity", "Intent received: " + intent.getDataString());
-        }
+        ZaloPaySDK.getInstance().onResult(intent);
     }
 
 
@@ -317,7 +316,8 @@ public class BillActivity extends AppCompatActivity {
                 postparam.put("Room", y.getRoom());
                 postparam.put("Service", y.getService());
                 postparam.put("Date", formattedDate);  // Sử dụng ngày đã định dạng
-                postparam.put("Price", String.valueOf(y.getPrice()));  // Đảm bảo giá tiền được định dạng đúng
+                postparam.put("Price", String.valueOf(y.getPrice()));
+                postparam.put("Status", y.getStatus());// Đảm bảo giá tiền được định dạng đúng
                 return postparam;
             }
         };

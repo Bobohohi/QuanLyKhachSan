@@ -10,17 +10,19 @@ public class yeucau implements Serializable {
     private String service;
     private String date;
     private double price;
-
+    private String status;
     public yeucau() {
     }
 
-    public yeucau( String customer, String room, String service, String date, double price) {
+    public yeucau( String customer, String room, String service, String date, double price, String status) {
 
         this.customer = customer;
         this.room = room;
         this.service = service;
         this.date = date;
         this.price = price;
+        this.status = status;
+
     }
 
 
@@ -65,6 +67,14 @@ public class yeucau implements Serializable {
         this.price = price;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "yeucau{" +
@@ -73,7 +83,7 @@ public class yeucau implements Serializable {
                 ", room='" + room + '\'' +
                 ", service='" + service + '\'' +
                 ", date=" + date +
-                ", price=" + price +
+                ", price=" + price +status+
                 '}';
     }
 }

@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="47dp"
         android:gravity="center"
-        android:text="Welcom To OWL HOTEL"
+        android:text="Welcome To OWL HOTEL"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
